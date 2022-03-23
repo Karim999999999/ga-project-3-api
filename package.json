@@ -1,7 +1,7 @@
 {
-  "name": "movies-api",
+  "name": "project-3",
   "version": "1.0.0",
-  "description": "the backend api for a movies application",
+  "description": "the backend api for project 3",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
