@@ -29,12 +29,21 @@ const getArticleById = (req, res, next) =>
 
 const createArticle = async (req, res, next) => {
   try {
-    const article = await Article.create(req.body);
-    await User.findByIdAndUpdate(
-      { _id: article.author },
-      { $push: { articles: article._id } }
-    );
-    return res.status(201).json(article);
+    if (req.currentUser) {
+      const user = req.currentUser;
+      console.log(req.currentUser);
+
+      const article = await Article.create({
+        ...req.body,
+        author: user._id,
+      });
+
+      await user.updateOne({ $push: { articles: article._id } });
+
+      return res.status(201).json(article);
+    }
+
+    return res.status(400).send('Unauthorized');
   } catch (err) {
     next(err);
   }
