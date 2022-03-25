@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import { secret } from '../config/environment.js';
+import Article from '../models/article.js';
 
 async function loginUser(req, res, next) {
   try {
@@ -32,12 +33,12 @@ async function loginUser(req, res, next) {
 }
 const getAllUsers = (req, res, next) =>
   User.find()
-    .then((users) => res.status(200).json(users))
+    .then(users => res.status(200).json(users))
     .catch(next);
 
 const getUserById = (req, res, next) =>
   User.findById(req.params.id)
-    .then((user) => res.status(200).json(user))
+    .then(user => res.status(200).json(user))
     .catch(next);
 
 const createUser = async (req, res, next) => {
@@ -46,6 +47,9 @@ const createUser = async (req, res, next) => {
       return res.status(422).json({ message: 'Passwords do not match' });
     }
     const user = await User.create(req.body);
+    // await Article.updateMany(
+    //   {_id: }
+    // )
     return res.status(201).json(user);
   } catch (e) {
     next(e);
@@ -54,8 +58,8 @@ const createUser = async (req, res, next) => {
 
 const updateUser = (req, res, next) =>
   User.findById(req.params.id)
-    .then((user) => user.set(req.body))
-    .then((updatedUser) => res.status(200).json(updatedUser))
+    .then(user => user.set(req.body))
+    .then(updatedUser => res.status(200).json(updatedUser))
     .catch(next);
 
 const deleteUser = (req, res, next) =>

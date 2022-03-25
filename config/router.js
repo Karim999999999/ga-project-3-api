@@ -19,7 +19,7 @@ import {
 
 const router = express.Router();
 
-router.route('/articles').get(getArticles).post(createArticle);
+router.route('/articles').get(getArticles).post(secureRoute, createArticle);
 
 router
   .route('/articles/:id')
@@ -29,7 +29,7 @@ router
 
 router.route('/users').get(getAllUsers);
 router.route('/register').post(createUser);
-router.route('/login').put(loginUser);
+router.route('/login').post(loginUser);
 router.route('/users/:id').get(getUserById).put(updateUser).delete(deleteUser);
 
 // Router For Articles
