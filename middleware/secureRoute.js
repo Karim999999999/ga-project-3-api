@@ -7,6 +7,7 @@ const secureRoute = async (req, res, next) => {
     const authToken = req.headers.authorization;
 
     if (!authToken || !authToken.startsWith('Bearer')) {
+      console.log('error');
       return res.status(401).send({ message: 'Unauthorized' });
     }
 

@@ -55,4 +55,4 @@ const athleteSchema = new mongoose.Schema({
   attendance: [{ type: mongoose.Types.ObjectId, ref: 'Sessions' }],
   dateAccepted: { type: String, required: true },
 });
-export default ('Athletes', athleteSchema);
+export default mongoose.model('Athletes', athleteSchema);
