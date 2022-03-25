@@ -13,23 +13,23 @@ import Article from '../models/article.js';
 
 const getArticles = (req, res, next) =>
   Article.find()
-    .then(articles => res.status(200).json(articles))
+    .then((articles) => res.status(200).json(articles))
     .catch(next);
 
 const getArticleById = (req, res, next) =>
   Article.findById(req.params.id)
-    .then(article => res.status(200).json(article))
+    .then((article) => res.status(200).json(article))
     .catch(next);
 
 const createArticle = (req, res, next) =>
   Article.create(req.body)
-    .then(article => res.status(201).json(article))
+    .then((article) => res.status(201).json(article))
     .catch(next);
 
 const updateArticle = (req, res, next) =>
   Article.findById(req.params.id)
-    .then(article => article.set(req.body))
-    .then(updatedArticle => res.status(200).json(updatedArticle))
+    .then((article) => article.set(req.body))
+    .then((updatedArticle) => res.status(200).json(updatedArticle))
     .catch(next);
 
 const deleteArticle = (req, res, next) =>

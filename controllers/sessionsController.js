@@ -1,6 +1,6 @@
-import Sessions from '../models/sessions';
+import Sessions from '../models/sessions.js';
 
-const getAllSessionsPrivate = async (req, res, next) => {
+export const getAllSessionsPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const sessions = await Sessions.find();
@@ -14,7 +14,7 @@ const getAllSessionsPrivate = async (req, res, next) => {
   }
 };
 
-const getAllSessionsForCoachPrivate = async (req, res, next) => {
+export const getAllSessionsForCoachPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const sessions = await Sessions.find({ coach: req.params.coachId });
@@ -28,7 +28,7 @@ const getAllSessionsForCoachPrivate = async (req, res, next) => {
   }
 };
 
-const getSessionsByStatusPrivate = async (req, res, next) => {
+export const getSessionsByStatusPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const sessions = await Sessions.find({ status: req.params.statusquerry });
@@ -41,7 +41,7 @@ const getSessionsByStatusPrivate = async (req, res, next) => {
     next(error);
   }
 };
-const getSessionBySessionIdPrivate = async (req, res, next) => {
+export const getSessionBySessionIdPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const session = await Sessions.findById(req.params.id);
@@ -54,7 +54,7 @@ const getSessionBySessionIdPrivate = async (req, res, next) => {
     next(error);
   }
 };
-const editSessionByIdPrivate = async (req, res, next) => {
+export const editSessionByIdPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const session = await Sessions.findById(req.params.id);
@@ -71,7 +71,7 @@ const editSessionByIdPrivate = async (req, res, next) => {
   }
 };
 
-const deleteSessionPrivate = async (req, res, next) => {
+export const deleteSessionPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const session = await Sessions.findByIdAndDelete(req.params.id);
@@ -83,28 +83,4 @@ const deleteSessionPrivate = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-const searchForSessionByDatePrivate = async (req, res, next) => {
-  try {
-    if (req.currentUser.isAdmin || req.currentUser.isCoach) {
-      const sessions = await Sessions.find({
-        dateAndTime: req.params.dateTimeQuery,
-      });
-      return res.status(200).json(sessions);
-    }
-    return res.status(401).send({
-      message: 'Unauthorized: you must be an admin to edit a movie',
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-export default {
-  getAllSessionsPrivate,
-  getAllSessionsForCoachPrivate,
-  getSessionsByStatusPrivate,
-  getSessionBySessionIdPrivate,
-  editSessionByIdPrivate,
-  deleteSessionPrivate,
-  searchForSessionByDatePrivate,
 };

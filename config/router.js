@@ -29,10 +29,10 @@ router
 
 router.route('/users').get(getAllUsers);
 router.route('/register').post(createUser);
-router.route('/login').put(loginUser);
+router.route('/login').post(loginUser);
 router.route('/users/:id').get(getUserById).put(updateUser).delete(deleteUser);
 
-// Router For Articles
+// Router For Athletes
 import {
   getAllAthletesPrivate,
   getApprovedAthletesPublic,
@@ -42,28 +42,26 @@ import {
   editAthleteDetailsbyIdPrivate,
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
-  searchAthleteByNameApprovedAthletesPublic,
-  searchAthleteByNameAllAthletesPrivate,
   getAthletesMedicalIncidentsPrivate,
   createNewAthlete,
 } from '../controllers/athleteController.js';
 
 router
-  .route('/athlete')
+  .route('/athletes')
   .get(secureRoute, getAllAthletesPrivate)
   .post(createNewAthlete);
-router.route('/approved-athlete').get(getApprovedAthletesPublic);
-router.route('/athlete/:status').get(secureRoute, getAthletesByStatusPrivate);
+router.route('/approved-athletes').get(getApprovedAthletesPublic);
+router
+  .route('/athletes/stat/:status')
+  .get(secureRoute, getAthletesByStatusPrivate);
 router
   .route('/athlete/:id')
   .get(secureRoute, getAthletesByIdPrivate)
-  .get(getAthletesByIdPublic)
   .put(secureRoute, editAthleteDetailsbyIdPrivate)
   .delete(secureRoute, deleteAthletePrivate);
-router
-  .route('/approved-athlete/name/:searchName')
-  .get(secureRoute, searchAthleteByNameAllAthletesPrivate)
-  .get(searchAthleteByNameApprovedAthletesPublic);
+
+router.route('/approved-athlete/:id').get(getAthletesByIdPublic);
+
 router
   .route('/athlete/:id/medical-incidents')
   .get(secureRoute, getAthletesMedicalIncidentsPrivate);
@@ -71,12 +69,41 @@ router
   .route('/athlete/:id/attendance')
   .get(secureRoute, getAthletesAttendancePrivate);
 
-// Router For Athletes
-
 // Router For Medical Incidents
 
+import {
+  registerNewMedicalIncidentPrivate,
+  editMedicalIncidentByIDPrivate,
+  getMedicalIncidentByIDPrivate,
+  deleteMedicalIncidentPrivate,
+} from '../controllers/medicalIncidentsController.js';
+
+router
+  .route('/athlete/:id/medical-incident/')
+  .post(registerNewMedicalIncidentPrivate);
+router
+  .route('/athlete/:id/medical-incident/:medicalIncidentId')
+  .put(editMedicalIncidentByIDPrivate)
+  .get(getMedicalIncidentByIDPrivate)
+  .delete(deleteMedicalIncidentPrivate);
 // Router For Photos
 
 // Router For Sessions
+import {
+  getAllSessionsPrivate,
+  getAllSessionsForCoachPrivate,
+  getSessionsByStatusPrivate,
+  getSessionBySessionIdPrivate,
+  editSessionByIdPrivate,
+  deleteSessionPrivate,
+} from '../controllers/sessionsController.js';
 
+router.route('/sessions').get(getAllSessionsPrivate);
+router.route('/sessions/coach/:coachId').get(getAllSessionsForCoachPrivate);
+router.route('/sessions/status/:statusquerry').get(getSessionsByStatusPrivate);
+router
+  .route('/sessions/:id')
+  .get(getSessionBySessionIdPrivate)
+  .put(editSessionByIdPrivate)
+  .delete(deleteSessionPrivate);
 export default router;

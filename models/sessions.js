@@ -8,22 +8,22 @@ const sessionSchema = new mongoose.Schema(
     distanceCycledKm: { type: Number, required: true },
     coach: { type: mongoose.Schema.ObjectId, ref: 'Users', required: true },
     attendance: [{ type: mongoose.Types.ObjectId, ref: 'Athletes' }],
-    photosUrls: [photoSchema],
+    // photosUrls: [photoSchema],
   },
   { timestamps: true }
 );
 
-const photoSchema = new mongoose.Schema(
-  {
-    photoName: { type: String },
-    photoUrl: { type: String, required: true },
-    uploadedBy: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Users',
-      required: true,
-    },
-    session: [{ type: mongoose.Types.ObjectId, ref: 'Sessions' }],
-  },
-  { timestamps: true }
-);
+// const photoSchema = new mongoose.Schema(
+//   {
+//     photoName: { type: String },
+//     photoUrl: { type: String, required: true },
+//     uploadedBy: {
+//       type: mongoose.Schema.ObjectId,
+//       ref: 'Users',
+//       required: true,
+//     },
+//     session: [{ type: mongoose.Types.ObjectId, ref: 'Sessions' }],
+//   },
+//   { timestamps: true }
+// );
 export default mongoose.model('Sessions', sessionSchema);
