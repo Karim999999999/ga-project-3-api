@@ -3,7 +3,6 @@ import articles from './data.js';
 import Article from '../models/article.js';
 import User from '../models/user.js';
 import mongoose from 'mongoose';
-import athletes from '../models/athletes.js';
 
 const adminUser = {
   firstName: 'admin',
@@ -108,7 +107,7 @@ async function seed() {
 
   //? Creating Admin user
   console.log('Creating users...');
-  const [admin, user] = await User.create([
+  const [admin, writer, editor, coach, athlete, medical] = await User.create([
     adminUser,
     writerUser,
     editorUser,
@@ -125,7 +124,11 @@ async function seed() {
 
   //? SEEDING
   console.log('About to seed...');
-  const articles = await Article.create(articles);
+  const articlesWithAuthors = articles.map((article) => {
+    article.author = admin._id;
+    return article;
+  });
+  await Article.create(articlesWithAuthors);
   console.log(`Seeded ${articles.length} articles!`);
 
   //? Disconnecting
@@ -134,27 +137,3 @@ async function seed() {
   console.log('Disconnected!');
 }
 seed();
-
-// async function seedDatabase() {
-//   try {
-//     await connectToDb();
-
-//     console.log('🤖 Database connected!');
-
-//     await mongoose.connection.db.dropDatabase();
-
-//     console.log('🤖 Database was dropped!');
-
-//
-//     console.log('Users created!');
-
-//     //const articles = await Article.create([]);
-//   } catch (err) {
-//     console.log('🤖 Something went wrong with seeding!');
-//     console.log(err);
-
-//     await mongoose.connection.close();
-//     console.log('🤖 Goodbye!');
-//   }
-// }
-// seedDatabase();
