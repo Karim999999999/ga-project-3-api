@@ -1,7 +1,7 @@
 import Sessions from '../models/sessions.js';
 
 export const getAllSessionsPrivate = async (req, res, next) => {
-  console.log(req);
+  console.log(req.currentUser);
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const sessions = await Sessions.find();

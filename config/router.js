@@ -83,9 +83,9 @@ router
   .post(registerNewMedicalIncidentPrivate);
 router
   .route('/athlete/:id/medical-incident/:medicalIncidentId')
-  .put(editMedicalIncidentByIDPrivate)
-  .get(getMedicalIncidentByIDPrivate)
-  .delete(deleteMedicalIncidentPrivate);
+  .put(secureRoute, editMedicalIncidentByIDPrivate)
+  .get(secureRoute, getMedicalIncidentByIDPrivate)
+  .delete(secureRoute, deleteMedicalIncidentPrivate);
 // Router For Photos
 
 // Router For Sessions
@@ -98,9 +98,13 @@ import {
   deleteSessionPrivate,
 } from '../controllers/sessionsController.js';
 
-router.route('/sessions').get(getAllSessionsPrivate);
-router.route('/sessions/coach/:coachId').get(getAllSessionsForCoachPrivate);
-router.route('/sessions/status/:statusquerry').get(getSessionsByStatusPrivate);
+router.route('/sessions').get(secureRoute, getAllSessionsPrivate);
+router
+  .route('/sessions/coach/:coachId')
+  .get(secureRoute, getAllSessionsForCoachPrivate);
+router
+  .route('/sessions/status/:statusquerry')
+  .get(secureRoute, getSessionsByStatusPrivate);
 router
   .route('/sessions/:id')
   .get(getSessionBySessionIdPrivate)
