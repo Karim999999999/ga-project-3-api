@@ -133,17 +133,7 @@ const getAthletesAttendancePrivate = async (req, res, next) => {
     next(error);
   }
 };
-const searchAthleteByNameApprovedAthletesPublic = async (req, res, next) => {
-  try {
-    const athlete = await Athletes.find({
-      firstName: req.params.searchName,
-      applicationStatus: 'Approved',
-    });
-    return res.status(200).json(athlete);
-  } catch (error) {
-    next(error);
-  }
-};
+
 const searchAthleteByNameAllAthletesPrivate = async (req, res, next) => {
   try {
     if (
@@ -205,7 +195,6 @@ export {
   editAthleteDetailsbyIdPrivate,
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
-  searchAthleteByNameApprovedAthletesPublic,
   searchAthleteByNameAllAthletesPrivate,
   getAthletesMedicalIncidentsPrivate,
   createNewAthlete,

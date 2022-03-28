@@ -25,7 +25,7 @@ const createArticle = async (req, res, next) => {
         author: user._id,
       });
 
-      await user.updateOne({ $push: { articles: article._id } });
+      await User.updateOne({ $push: { articles: article._id } });
 
       return res.status(201).json(article);
     }
