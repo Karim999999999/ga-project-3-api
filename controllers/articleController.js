@@ -31,11 +31,11 @@ const createArticle = async (req, res, next) => {
   try {
     if (req.currentUser) {
       const user = req.currentUser;
-      console.log(req.currentUser);
 
       const article = await Article.create({
         ...req.body,
         author: user._id,
+        writtenBy: user.username,
       });
 
       await user.updateOne({ $push: { articles: article._id } });
