@@ -3,29 +3,16 @@ import User from '../models/user.js';
 
 // I tend to write async functions with .then syntax because I value brevity and there's less room for bugs (remember the bugs lab? :D) and moreover our code will be different from the rest of the class, but if you guys prefer I'll take a minute to rewrite them like:
 
-// const getArticles = async (res, req, next) => {
-//   try {
-//     const articles = await Article.find();
-//     return res.status(200).json(articles);
-//   } catch (err) {
-//     next(err)
-//   }
-// }
-
-const getArticles = (req, res, next) =>
+const getArticles = (req, res, next) => {
   Article.find()
-    .then(articles => res.status(200).json(articles))
+    .then((articles) => res.status(200).json(articles))
     .catch(next);
-
-const getArticleById = (req, res, next) =>
+};
+const getArticleById = (req, res, next) => {
   Article.findById(req.params.id)
-    .then(article => res.status(200).json(article))
+    .then((article) => res.status(200).json(article))
     .catch(next);
-
-// const createArticle = (req, res, next) =>
-//   Article.create(req.body)
-//     .then(article => res.status(201).json(article))
-//     .catch(next);
+};
 
 const createArticle = async (req, res, next) => {
   try {
@@ -38,7 +25,7 @@ const createArticle = async (req, res, next) => {
         writtenBy: user.username,
       });
 
-      await user.updateOne({ $push: { articles: article._id } });
+      await User.updateOne({ $push: { articles: article._id } });
 
       return res.status(201).json(article);
     }
@@ -51,8 +38,8 @@ const createArticle = async (req, res, next) => {
 
 const updateArticle = (req, res, next) =>
   Article.findById(req.params.id)
-    .then(article => article.set(req.body))
-    .then(updatedArticle => res.status(200).json(updatedArticle))
+    .then((article) => article.set(req.body))
+    .then((updatedArticle) => res.status(200).json(updatedArticle))
     .catch(next);
 
 const deleteArticle = (req, res, next) =>

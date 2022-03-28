@@ -1,8 +1,8 @@
-import Athletes from '../models/athletes';
+import Athletes from '../models/athletes.js';
 
-const registerNewMedicalIncidentPrivate = async (req, res, next) => {
+export const registerNewMedicalIncidentPrivate = async (req, res, next) => {
   try {
-    if (req.currentUser.isMedic) {
+    if (req.currentUser.isMedic || req.currentUser.isAdmin) {
       const athlete = await Athletes.findById(req.params.id);
 
       if (!athlete) {
@@ -26,9 +26,9 @@ const registerNewMedicalIncidentPrivate = async (req, res, next) => {
     next(error);
   }
 };
-const editMedicalIncidentByIDPrivate = async (req, res, next) => {
+export const editMedicalIncidentByIDPrivate = async (req, res, next) => {
   try {
-    if (req.currentUser.isMedic) {
+    if (req.currentUser.isMedic || req.currentUser.isAdmin) {
       const { id, medicalIncidentId } = req.params;
       const athlete = await Athletes.findById(id);
 
@@ -54,7 +54,7 @@ const editMedicalIncidentByIDPrivate = async (req, res, next) => {
   }
 };
 
-const getMedicalIncidentByIDPrivate = async (req, res, next) => {
+export const getMedicalIncidentByIDPrivate = async (req, res, next) => {
   try {
     if (
       req.currentUser.isMedic ||
@@ -81,7 +81,7 @@ const getMedicalIncidentByIDPrivate = async (req, res, next) => {
   }
 };
 
-const deleteMedicalIncidentPrivate = async (req, res, next) => {
+export const deleteMedicalIncidentPrivate = async (req, res, next) => {
   try {
     if (
       req.currentUser.isMedic ||
@@ -111,11 +111,4 @@ const deleteMedicalIncidentPrivate = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-export default {
-  registerNewMedicalIncidentPrivate,
-  editMedicalIncidentByIDPrivate,
-  getMedicalIncidentByIDPrivate,
-  deleteMedicalIncidentPrivate,
 };

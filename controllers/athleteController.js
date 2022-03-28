@@ -1,4 +1,4 @@
-// import Sessions from '../models/sessions.js';
+import Sessions from '../models/sessions.js';
 import Athletes from '../models/athletes.js';
 
 const getAllAthletesPrivate = async (req, res, next) => {
@@ -21,7 +21,7 @@ const getAllAthletesPrivate = async (req, res, next) => {
 
 const getApprovedAthletesPublic = async (req, res, next) => {
   try {
-    const athletes = await Athletes.find({ status: 'Approved' });
+    const athletes = await Athletes.find({ applicationStatus: 'Approved' });
     return res.status(200).json(athletes);
   } catch (error) {
     next(error);
@@ -68,7 +68,7 @@ const getAthletesByIdPublic = async (req, res, next) => {
   try {
     const athlete = await Athletes.find({
       _id: req.params.id,
-      status: 'Approved',
+      applicationStatus: 'Approved',
     });
     return res.status(200).json(athlete);
   } catch (error) {
@@ -133,17 +133,7 @@ const getAthletesAttendancePrivate = async (req, res, next) => {
     next(error);
   }
 };
-const searchAthleteByNameApprovedAthletesPublic = async (req, res, next) => {
-  try {
-    const athlete = await Athletes.find({
-      name: req.params.searchName,
-      status: 'Approved',
-    });
-    return res.status(200).json(athlete);
-  } catch (error) {
-    next(error);
-  }
-};
+
 const searchAthleteByNameAllAthletesPrivate = async (req, res, next) => {
   try {
     if (
@@ -185,6 +175,11 @@ const getAthletesMedicalIncidentsPrivate = async (req, res, next) => {
 const createNewAthlete = async (req, res, next) => {
   try {
     const athlete = await Athletes.create(req.body);
+
+    await Sessions.updateMany(
+      { _id: athlete.attendance },
+      { $push: { attendance: athlete._id } }
+    );
     return res.status(201).json(athlete);
   } catch (error) {
     next(error);
@@ -200,7 +195,6 @@ export {
   editAthleteDetailsbyIdPrivate,
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
-  searchAthleteByNameApprovedAthletesPublic,
   searchAthleteByNameAllAthletesPrivate,
   getAthletesMedicalIncidentsPrivate,
   createNewAthlete,
