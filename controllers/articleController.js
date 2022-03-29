@@ -8,6 +8,21 @@ const getArticles = (req, res, next) => {
     .then((articles) => res.status(200).json(articles))
     .catch(next);
 };
+
+const getArticleByStatusAndUserId = (req, res, next) => {
+  try {
+    if (req.currentUser) {
+      const articlesByStatus = Article.find({
+        author: req.currentUser.userId,
+        status: req.params.articleStatus,
+      });
+      return res.status(200).json(articlesByStatus);
+    }
+    return res.status(400).send({ message: 'unauthorized' });
+  } catch (error) {
+    next(error);
+  }
+};
 const getArticleById = (req, res, next) => {
   Article.findById(req.params.id)
     .then((article) => res.status(200).json(article))
@@ -53,4 +68,5 @@ export {
   createArticle,
   updateArticle,
   deleteArticle,
+  getArticleByStatusAndUserId,
 };
