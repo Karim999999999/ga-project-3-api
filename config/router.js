@@ -15,12 +15,16 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
+  getArticleByStatusAndUserId,
 } from '../controllers/articleController.js';
 
 const router = express.Router();
 
 router.route('/articles').get(getArticles).post(secureRoute, createArticle);
 
+router
+  .route('manage/articles/status/:articleStatus')
+  .get(secureRoute, getArticleByStatusAndUserId);
 router
   .route('/articles/:id')
   .get(getArticleById)

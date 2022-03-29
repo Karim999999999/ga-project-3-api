@@ -1,10 +1,11 @@
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import { secret } from '../config/environment.js';
-import Article from '../models/article.js';
+// import Article from '../models/article.js';
 
 async function loginUser(req, res, next) {
   try {
+    console.log(req.body.email);
     // ! Get the user from the database, and grab its hash.
     const user = await User.findOne({ email: req.body.email });
     // ! If there's no user
@@ -25,7 +26,7 @@ async function loginUser(req, res, next) {
       secret, // the secret that only the developer knows
       { expiresIn: '6h' } // token expires in 6 hours
     );
-
+    console.log(token);
     return res.status(202).send({ token, message: 'Login successful!' });
   } catch (e) {
     next(e);
@@ -33,12 +34,12 @@ async function loginUser(req, res, next) {
 }
 const getAllUsers = (req, res, next) =>
   User.find()
-    .then(users => res.status(200).json(users))
+    .then((users) => res.status(200).json(users))
     .catch(next);
 
 const getUserById = (req, res, next) =>
   User.findById(req.params.id)
-    .then(user => res.status(200).json(user))
+    .then((user) => res.status(200).json(user))
     .catch(next);
 
 const createUser = async (req, res, next) => {
@@ -58,8 +59,8 @@ const createUser = async (req, res, next) => {
 
 const updateUser = (req, res, next) =>
   User.findById(req.params.id)
-    .then(user => user.set(req.body))
-    .then(updatedUser => res.status(200).json(updatedUser))
+    .then((user) => user.set(req.body))
+    .then((updatedUser) => res.status(200).json(updatedUser))
     .catch(next);
 
 const deleteUser = (req, res, next) =>
