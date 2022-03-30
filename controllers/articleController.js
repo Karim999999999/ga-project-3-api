@@ -14,8 +14,8 @@ const getArticles = async (req, res, next) => {
 const getArticleByStatusAndUserId = async (req, res, next) => {
   try {
     if (req.currentUser) {
-      const articlesByStatus = Article.find({
-        author: req.currentUser.userId,
+      const articlesByStatus = await Article.find({
+        author: req.currentUser._id,
         status: req.params.articleStatus,
       });
       return res.status(200).json(articlesByStatus);
@@ -49,7 +49,6 @@ const createArticle = async (req, res, next) => {
       const article = await Article.create({
         ...req.body,
         author: user._id,
-        writtenBy: user.username,
       });
 
       await User.updateOne({ $push: { articles: article._id } });
