@@ -7,7 +7,7 @@ const secureRoute = async (req, res, next) => {
     const authToken = req.headers.authorization;
 
     if (!authToken || !authToken.startsWith('Bearer')) {
-      console.log('error');
+      console.log('error - token does not exist or is not a bearer token');
       return res.status(401).send({ message: 'Unauthorized' });
     }
 
@@ -18,7 +18,9 @@ const secureRoute = async (req, res, next) => {
       // data would be the payload on the token if decrytped successfully
 
       if (err) {
-        return res.status(401).send({ message: 'Unauthorized' });
+        return res
+          .status(401)
+          .send({ message: 'Unauthorized - could not decrypt token' });
       }
 
       const user = await User.findById(data.userId);

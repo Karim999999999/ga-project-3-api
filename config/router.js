@@ -6,7 +6,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-  loginUser,
+  loginUser
 } from '../controllers/userController.js';
 
 import {
@@ -15,7 +15,7 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
-  getArticleByStatusAndUserId,
+  getArticleByStatusAndUserId
 } from '../controllers/articleController.js';
 
 const router = express.Router();
@@ -23,7 +23,7 @@ const router = express.Router();
 router.route('/articles').get(getArticles).post(secureRoute, createArticle);
 
 router
-  .route('manage/articles/status/:articleStatus')
+  .route('/manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
 router
   .route('/articles/:id')
@@ -47,7 +47,7 @@ import {
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
   getAthletesMedicalIncidentsPrivate,
-  createNewAthlete,
+  createNewAthlete
 } from '../controllers/athleteController.js';
 
 router
@@ -79,7 +79,7 @@ import {
   registerNewMedicalIncidentPrivate,
   editMedicalIncidentByIDPrivate,
   getMedicalIncidentByIDPrivate,
-  deleteMedicalIncidentPrivate,
+  deleteMedicalIncidentPrivate
 } from '../controllers/medicalIncidentsController.js';
 
 router
@@ -99,7 +99,7 @@ import {
   getSessionsByStatusPrivate,
   getSessionBySessionIdPrivate,
   editSessionByIdPrivate,
-  deleteSessionPrivate,
+  deleteSessionPrivate
 } from '../controllers/sessionsController.js';
 
 router.route('/sessions').get(secureRoute, getAllSessionsPrivate);
