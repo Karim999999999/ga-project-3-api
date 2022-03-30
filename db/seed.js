@@ -15,12 +15,13 @@ const adminUser = {
     '6241b5be7785e878f68c8827',
     '6241b6217785e878f68c8833',
   ],
-  isAdmin: true,
-  isWriter: false,
-  isEditor: false,
-  isCoach: false,
-  isAthlete: false,
-  isMedical: false,
+  role: 'admin',
+  // isAdmin: true,
+  // isWriter: false,
+  // isEditor: false,
+  // isCoach: false,
+  // isAthlete: false,
+  // isMedical: false,
 };
 
 const writerUser = {
@@ -136,7 +137,7 @@ async function seed() {
 
   //? SEEDING
   console.log('About to seed...');
-  const articlesWithAuthors = articles.map((article) => {
+  const articlesWithAuthors = articles.map(article => {
     article.author = admin._id;
     return article;
   });

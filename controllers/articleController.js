@@ -3,10 +3,12 @@ import User from '../models/user.js';
 
 // I tend to write async functions with .then syntax because I value brevity and there's less room for bugs (remember the bugs lab? :D) and moreover our code will be different from the rest of the class, but if you guys prefer I'll take a minute to rewrite them like:
 
-const getArticles = (req, res, next) => {
-  Article.find()
-    .then((articles) => res.status(200).json(articles))
-    .catch(next);
+const getArticles = async (req, res, next) => {
+  try {
+    res.status(200).json(res.sortPaginate);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getArticleByStatusAndUserId = async (req, res, next) => {
@@ -14,7 +16,7 @@ const getArticleByStatusAndUserId = async (req, res, next) => {
     if (req.currentUser) {
       const articlesByStatus = await Article.find({
         author: req.currentUser._id,
-        status: req.params.articleStatus
+        status: req.params.articleStatus,
       });
       return res.status(200).json(articlesByStatus);
     }
@@ -34,11 +36,10 @@ const createArticle = async (req, res, next) => {
   try {
     if (req.currentUser) {
       const user = req.currentUser;
-      console.log(req.currentUser);
 
       const article = await Article.create({
         ...req.body,
-        author: user._id
+        author: user._id,
       });
 
       await User.updateOne({ $push: { articles: article._id } });
@@ -69,5 +70,5 @@ export {
   createArticle,
   updateArticle,
   deleteArticle,
-  getArticleByStatusAndUserId
+  getArticleByStatusAndUserId,
 };

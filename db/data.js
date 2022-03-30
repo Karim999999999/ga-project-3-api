@@ -12,7 +12,7 @@ const articles = [
     '6241951597021a989b204ea9',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem lorem, congue at lectus eget, euismod iaculis ex. Aliquam scelerisque tempus mauris, at ornare massa pretium id. Aliquam eget luctus felis. Nulla facilisi. Proin non eleifend dolor, ultrices consequat elit. In mollis scelerisque imperdiet. Morbi auctor tincidunt lorem a pretium. Nulla ultrices risus at pharetra sodales. Donec et porttitor purus, eu blandit erat. Curabitur mollis dui odio, in aliquet ante laoreet nec. Vestibulum blandit rhoncus imperdiet. Vestibulum sit amet urna quis nisi molestie sodales.',
     ['sport', 'training'],
-    'draft'
+    'published'
   ),
   createArticle(
     'article two',
@@ -26,7 +26,7 @@ const articles = [
     '6241b5497785e878f68c881b',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem lorem, congue at lectus eget, euismod iaculis ex. Aliquam scelerisque tempus mauris, at ornare massa pretium id. Aliquam eget luctus felis. Nulla facilisi. Proin non eleifend dolor, ultrices consequat elit. In mollis scelerisque imperdiet. Morbi auctor tincidunt lorem a pretium. Nulla ultrices risus at pharetra sodales. Donec et porttitor purus, eu blandit erat. Curabitur mollis dui odio, in aliquet ante laoreet nec. Vestibulum blandit rhoncus imperdiet. Vestibulum sit amet urna quis nisi molestie sodales.',
     ['sport', 'training'],
-    'draft'
+    'published'
   ),
   createArticle(
     'article four',
@@ -46,21 +46,21 @@ const articles = [
     'article six',
     '6241b58c7785e878f68c8821',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem lorem, congue at lectus eget, euismod iaculis ex. Aliquam scelerisque tempus mauris, at ornare massa pretium id. Aliquam eget luctus felis. Nulla facilisi. Proin non eleifend dolor, ultrices consequat elit. In mollis scelerisque imperdiet. Morbi auctor tincidunt lorem a pretium. Nulla ultrices risus at pharetra sodales. Donec et porttitor purus, eu blandit erat. Curabitur mollis dui odio, in aliquet ante laoreet nec. Vestibulum blandit rhoncus imperdiet. Vestibulum sit amet urna quis nisi molestie sodales.',
-    ['sport', 'training'],
+    ['sport'],
     'draft'
   ),
   createArticle(
     'article seven',
     '6241b6217785e878f68c8833',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem lorem, congue at lectus eget, euismod iaculis ex. Aliquam scelerisque tempus mauris, at ornare massa pretium id. Aliquam eget luctus felis. Nulla facilisi. Proin non eleifend dolor, ultrices consequat elit. In mollis scelerisque imperdiet. Morbi auctor tincidunt lorem a pretium. Nulla ultrices risus at pharetra sodales. Donec et porttitor purus, eu blandit erat. Curabitur mollis dui odio, in aliquet ante laoreet nec. Vestibulum blandit rhoncus imperdiet. Vestibulum sit amet urna quis nisi molestie sodales.',
-    ['sport', 'training'],
-    'draft'
+    ['sport'],
+    'published'
   ),
   createArticle(
     'article eight',
     '6241b6a07785e878f68c8839',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem lorem, congue at lectus eget, euismod iaculis ex. Aliquam scelerisque tempus mauris, at ornare massa pretium id. Aliquam eget luctus felis. Nulla facilisi. Proin non eleifend dolor, ultrices consequat elit. In mollis scelerisque imperdiet. Morbi auctor tincidunt lorem a pretium. Nulla ultrices risus at pharetra sodales. Donec et porttitor purus, eu blandit erat. Curabitur mollis dui odio, in aliquet ante laoreet nec. Vestibulum blandit rhoncus imperdiet. Vestibulum sit amet urna quis nisi molestie sodales.',
-    ['sport', 'training'],
+    ['sport'],
     'draft'
   ),
   createArticle(
