@@ -20,6 +20,7 @@ import {
   updateArticle,
   deleteArticle,
   getArticleByStatusAndUserId,
+  getArticlesByUserId,
 } from '../controllers/articleController.js';
 
 const router = express.Router();
@@ -32,6 +33,10 @@ router
 router
   .route('manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
+
+router
+  .route('/manage/articles')
+  .get(sortPaginate(Article), secureRoute, getArticlesByUserId);
 router
   .route('/articles/:id')
   .get(getArticleById)

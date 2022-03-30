@@ -11,7 +11,7 @@ const getArticles = async (req, res, next) => {
   }
 };
 
-const getArticleByStatusAndUserId = (req, res, next) => {
+const getArticleByStatusAndUserId = async (req, res, next) => {
   try {
     if (req.currentUser) {
       const articlesByStatus = Article.find({
@@ -25,6 +25,16 @@ const getArticleByStatusAndUserId = (req, res, next) => {
     next(error);
   }
 };
+
+const getArticlesByUserId = (req, res, next) => {
+  Article.find({ author: req.currentUser._id })
+    .then(articles => {
+      console.log(req.query);
+      res.status(200).json(res.sortPaginate);
+    })
+    .catch(next);
+};
+
 const getArticleById = (req, res, next) => {
   Article.findById(req.params.id)
     .then(article => res.status(200).json(article))
@@ -71,4 +81,5 @@ export {
   updateArticle,
   deleteArticle,
   getArticleByStatusAndUserId,
+  getArticlesByUserId,
 };
