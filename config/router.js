@@ -1,5 +1,9 @@
 import express from 'express';
 import secureRoute from '../middleware/secureRoute.js';
+import { sortPaginate } from '../middleware/sortPaginate.js';
+
+import Article from '../models/article.js';
+
 import {
   getAllUsers,
   getUserById,
@@ -20,7 +24,10 @@ import {
 
 const router = express.Router();
 
-router.route('/articles').get(getArticles).post(secureRoute, createArticle);
+router
+  .route('/articles')
+  .get(sortPaginate(Article), getArticles)
+  .post(secureRoute, createArticle);
 
 router
   .route('manage/articles/status/:articleStatus')

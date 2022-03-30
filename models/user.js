@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'writer', 'editor', 'coach', 'athlete', 'medical'],
     default: 'writer',
   },
+
   // isAdmin: Boolean,
   // isWriter: Boolean,
   // isEditor: Boolean,
