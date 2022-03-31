@@ -31,7 +31,7 @@ router
   .post(secureRoute, createArticle);
 
 router
-  .route('manage/articles/status/:articleStatus')
+  .route('/manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
 
 router
