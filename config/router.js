@@ -10,7 +10,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-  loginUser,
+  loginUser
 } from '../controllers/userController.js';
 
 import {
@@ -31,7 +31,7 @@ router
   .post(secureRoute, createArticle);
 
 router
-  .route('manage/articles/status/:articleStatus')
+  .route('/manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
 
 router
@@ -59,7 +59,7 @@ import {
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
   getAthletesMedicalIncidentsPrivate,
-  createNewAthlete,
+  createNewAthlete
 } from '../controllers/athleteController.js';
 
 router
@@ -91,7 +91,7 @@ import {
   registerNewMedicalIncidentPrivate,
   editMedicalIncidentByIDPrivate,
   getMedicalIncidentByIDPrivate,
-  deleteMedicalIncidentPrivate,
+  deleteMedicalIncidentPrivate
 } from '../controllers/medicalIncidentsController.js';
 
 router
