@@ -112,9 +112,13 @@ import {
   getSessionBySessionIdPrivate,
   editSessionByIdPrivate,
   deleteSessionPrivate,
+  createSessionPrivate,
 } from '../controllers/sessionsController.js';
 
-router.route('/sessions').get(secureRoute, getAllSessionsPrivate);
+router
+  .route('/sessions')
+  .get(secureRoute, getAllSessionsPrivate)
+  .post(secureRoute, createSessionPrivate);
 router
   .route('/sessions/coach/:coachId')
   .get(secureRoute, getAllSessionsForCoachPrivate);

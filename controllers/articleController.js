@@ -49,7 +49,6 @@ const createArticle = async (req, res, next) => {
       const article = await Article.create({
         ...req.body,
         author: user._id,
-        writtenBy: user.username,
       });
 
       await User.updateOne({ $push: { articles: article._id } });
@@ -63,11 +62,11 @@ const createArticle = async (req, res, next) => {
   }
 };
 
-const updateArticle = (req, res, next) =>
-  Article.findById(req.params.id)
-    .then(article => article.set(req.body))
-    .then(updatedArticle => res.status(200).json(updatedArticle))
-    .catch(next);
+const updateArticle = async (req, res, next) => {
+  await Article.findByIdAndUpdate(req.params.id, req.body);
+  const updatedArticleTwo = await Article.findById(req.params.id);
+  res.status(200).json(updatedArticleTwo);
+};
 
 const deleteArticle = (req, res, next) =>
   Article.findByIdAndDelete(req.params.id)
