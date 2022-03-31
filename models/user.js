@@ -8,18 +8,12 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
   articles: [{ type: mongoose.Types.ObjectId, ref: 'Article' }],
-  role: {
-    type: String,
-    enum: ['admin', 'writer', 'editor', 'coach', 'athlete', 'medical'],
-    default: 'writer',
-  },
-
-  // isAdmin: Boolean,
-  // isWriter: Boolean,
-  // isEditor: Boolean,
-  // isCoach: Boolean,
-  // isAthlete: Boolean,
-  // isMedical: Boolean,
+  isAdmin: Boolean,
+  isWriter: Boolean,
+  isEditor: Boolean,
+  isCoach: Boolean,
+  isAthlete: Boolean,
+  isMedical: Boolean,
 });
 
 UserSchema.pre('save', function encryptPassword(next) {

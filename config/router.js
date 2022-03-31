@@ -19,7 +19,8 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
-  getArticleByStatusAndUserId
+  getArticleByStatusAndUserId,
+  getArticlesByUserId,
 } from '../controllers/articleController.js';
 
 const router = express.Router();
@@ -32,6 +33,10 @@ router
 router
   .route('/manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
+
+router
+  .route('/manage/articles')
+  .get(sortPaginate(Article), secureRoute, getArticlesByUserId);
 router
   .route('/articles/:id')
   .get(getArticleById)
@@ -106,10 +111,14 @@ import {
   getSessionsByStatusPrivate,
   getSessionBySessionIdPrivate,
   editSessionByIdPrivate,
-  deleteSessionPrivate
+  deleteSessionPrivate,
+  createSessionPrivate,
 } from '../controllers/sessionsController.js';
 
-router.route('/sessions').get(secureRoute, getAllSessionsPrivate);
+router
+  .route('/sessions')
+  .get(secureRoute, getAllSessionsPrivate)
+  .post(secureRoute, createSessionPrivate);
 router
   .route('/sessions/coach/:coachId')
   .get(secureRoute, getAllSessionsForCoachPrivate);
