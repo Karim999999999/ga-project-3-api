@@ -71,6 +71,20 @@ export const editSessionByIdPrivate = async (req, res, next) => {
   }
 };
 
+export const createSessionPrivate = async (req, res, next) => {
+  try {
+    if (req.currentUser.isAdmin || req.currentUser.isCoach) {
+      const session = await Sessions.create(req.body);
+      return res.status(200).json(session);
+    }
+    return res.status(401).send({
+      message: 'Unauthorized: you must be an admin to edit a movie',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteSessionPrivate = async (req, res, next) => {
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {

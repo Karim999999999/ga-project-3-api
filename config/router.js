@@ -10,7 +10,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-  loginUser
+  loginUser,
 } from '../controllers/userController.js';
 
 import {
@@ -19,7 +19,8 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
-  getArticleByStatusAndUserId
+  getArticleByStatusAndUserId,
+  getArticlesByUserId,
 } from '../controllers/articleController.js';
 
 const router = express.Router();
@@ -32,6 +33,10 @@ router
 router
   .route('/manage/articles/status/:articleStatus')
   .get(secureRoute, getArticleByStatusAndUserId);
+
+router
+  .route('/manage/articles')
+  .get(sortPaginate(Article), secureRoute, getArticlesByUserId);
 router
   .route('/articles/:id')
   .get(getArticleById)
@@ -54,7 +59,7 @@ import {
   deleteAthletePrivate,
   getAthletesAttendancePrivate,
   getAthletesMedicalIncidentsPrivate,
-  createNewAthlete
+  createNewAthlete,
 } from '../controllers/athleteController.js';
 
 router
@@ -63,7 +68,7 @@ router
   .post(createNewAthlete);
 router.route('/approved-athletes').get(getApprovedAthletesPublic);
 router
-  .route('/athletes/stat/:status')
+  .route('/manage/athletes/status/:articleStatus')
   .get(secureRoute, getAthletesByStatusPrivate);
 router
   .route('/athlete/:id')
@@ -86,7 +91,7 @@ import {
   registerNewMedicalIncidentPrivate,
   editMedicalIncidentByIDPrivate,
   getMedicalIncidentByIDPrivate,
-  deleteMedicalIncidentPrivate
+  deleteMedicalIncidentPrivate,
 } from '../controllers/medicalIncidentsController.js';
 
 router
@@ -106,10 +111,14 @@ import {
   getSessionsByStatusPrivate,
   getSessionBySessionIdPrivate,
   editSessionByIdPrivate,
-  deleteSessionPrivate
+  deleteSessionPrivate,
+  createSessionPrivate,
 } from '../controllers/sessionsController.js';
 
-router.route('/sessions').get(secureRoute, getAllSessionsPrivate);
+router
+  .route('/sessions')
+  .get(secureRoute, getAllSessionsPrivate)
+  .post(secureRoute, createSessionPrivate);
 router
   .route('/sessions/coach/:coachId')
   .get(secureRoute, getAllSessionsForCoachPrivate);
