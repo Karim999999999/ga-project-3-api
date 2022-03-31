@@ -2,7 +2,7 @@ import { connectToDb, disconnectDb } from './helpers.js';
 import articles from './data.js';
 import Article from '../models/article.js';
 import User from '../models/user.js';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 const adminUser = {
   firstName: 'admin',
@@ -15,13 +15,12 @@ const adminUser = {
     '6241b5be7785e878f68c8827',
     '6241b6217785e878f68c8833',
   ],
-  role: 'admin',
-  // isAdmin: true,
-  // isWriter: false,
-  // isEditor: false,
-  // isCoach: false,
-  // isAthlete: false,
-  // isMedical: false,
+  isAdmin: true,
+  isWriter: false,
+  isEditor: false,
+  isCoach: false,
+  isAthlete: false,
+  isMedical: false,
 };
 
 const writerUser = {
@@ -137,7 +136,7 @@ async function seed() {
 
   //? SEEDING
   console.log('About to seed...');
-  const articlesWithAuthors = articles.map(article => {
+  const articlesWithAuthors = articles.map((article) => {
     article.author = admin._id;
     return article;
   });
