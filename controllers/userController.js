@@ -32,41 +32,65 @@ async function loginUser(req, res, next) {
     next(e);
   }
 }
-const getAllUsers = (req, res, next) =>
-  User.find()
-    .then((users) => res.status(200).json(users))
-    .catch(next);
+const getAllUsers = (req, res, next) => {
+  if (req.currentUser.isAdmin) {
+    User.find()
+      .then((users) => res.status(200).json(users))
+      .catch(next);
+  }
+  return res.status(401).send({
+    message: 'Unauthorized',
+  });
+};
 
-const getUserById = (req, res, next) =>
-  User.findById(req.params.id)
-    .then((user) => res.status(200).json(user))
-    .catch(next);
+const getUserById = (req, res, next) => {
+  if (req.currentUser.isAdmin || req.currentUser._id === req.params.id) {
+    User.findById(req.params.id)
+      .then((user) => res.status(200).json(user))
+      .catch(next);
+  }
+  return res.status(401).send({
+    message: 'Unauthorized',
+  });
+};
 
 const createUser = async (req, res, next) => {
-  try {
-    if (req.body.password !== req.body.passwordConfirmation) {
-      return res.status(422).json({ message: 'Passwords do not match' });
+  if (req.currentUser.isAdmin) {
+    try {
+      if (req.body.password !== req.body.passwordConfirmation) {
+        return res.status(422).json({ message: 'Passwords do not match' });
+      }
+      const user = await User.create(req.body);
+
+      return res.status(201).json(user);
+    } catch (e) {
+      next(e);
     }
-    const user = await User.create(req.body);
-    // await Article.updateMany(
-    //   {_id: }
-    // )
-    return res.status(201).json(user);
-  } catch (e) {
-    next(e);
   }
 };
 
-const updateUser = (req, res, next) =>
-  User.findById(req.params.id)
-    .then((user) => user.set(req.body))
-    .then((updatedUser) => res.status(200).json(updatedUser))
-    .catch(next);
+const updateUser = (req, res, next) => {
+  if (req.currentUser.isAdmin) {
+    User.findById(req.params.id)
+      .then((user) => user.set(req.body))
+      .then((updatedUser) => res.status(200).json(updatedUser))
+      .catch(next);
+  }
+  return res.status(401).send({
+    message: 'Unauthorized',
+  });
+};
 
-const deleteUser = (req, res, next) =>
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.status(204).send('User was deleted'))
-    .catch(next);
+const deleteUser = (req, res, next) => {
+  if (req.currentUser.isAdmin) {
+    User.findByIdAndDelete(req.params.id)
+      .then(() => res.status(204).send('User was deleted'))
+      .catch(next);
+  }
+  return res.status(401).send({
+    message: 'Unauthorized',
+  });
+};
 
 export {
   getAllUsers,
