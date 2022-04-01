@@ -43,10 +43,14 @@ router
   .put(updateArticle)
   .delete(deleteArticle);
 
-router.route('/users').get(getAllUsers);
-router.route('/register').post(createUser);
+router.route('/users').get(secureRoute, getAllUsers);
+router.route('/register').post(secureRoute, createUser);
 router.route('/login').post(loginUser);
-router.route('/users/:id').get(getUserById).put(updateUser).delete(deleteUser);
+router
+  .route('/users/:id')
+  .get(secureRoute, getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
 // Router For Athletes
 import {

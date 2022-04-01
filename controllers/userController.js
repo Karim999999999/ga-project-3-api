@@ -32,11 +32,10 @@ async function loginUser(req, res, next) {
     next(e);
   }
 }
-const getAllUsers = (req, res, next) => {
+const getAllUsers = async (req, res) => {
   if (req.currentUser.isAdmin) {
-    User.find()
-      .then((users) => res.status(200).json(users))
-      .catch(next);
+    const allUsers = await User.find();
+    return res.status(200).json(allUsers);
   }
   return res.status(401).send({
     message: 'Unauthorized',
@@ -44,14 +43,13 @@ const getAllUsers = (req, res, next) => {
 };
 
 const getUserById = (req, res, next) => {
-  if (req.currentUser.isAdmin || req.currentUser._id === req.params.id) {
+  try {
     User.findById(req.params.id)
       .then((user) => res.status(200).json(user))
       .catch(next);
+  } catch (error) {
+    next(error);
   }
-  return res.status(401).send({
-    message: 'Unauthorized',
-  });
 };
 
 const createUser = async (req, res, next) => {
