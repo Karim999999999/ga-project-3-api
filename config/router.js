@@ -3,6 +3,7 @@ import secureRoute from '../middleware/secureRoute.js';
 import { sortPaginate } from '../middleware/sortPaginate.js';
 
 import Article from '../models/article.js';
+import Sessions from '../models/sessions.js';
 
 import {
   getAllUsers,
@@ -31,8 +32,8 @@ router
   .post(secureRoute, createArticle);
 
 router
-  .route('/manage/articles/status/:articleStatus')
-  .get(secureRoute, getArticleByStatusAndUserId);
+  .route('/manage/articles/status')
+  .get(sortPaginate(Article), secureRoute, getArticleByStatusAndUserId);
 
 router
   .route('/manage/articles')
@@ -123,11 +124,11 @@ router
   .route('/sessions/coach/:coachId')
   .get(secureRoute, getAllSessionsForCoachPrivate);
 router
-  .route('/sessions/status/:statusquerry')
-  .get(secureRoute, getSessionsByStatusPrivate);
+  .route('/sessions/status/')
+  .get(sortPaginate(Sessions), secureRoute, getSessionsByStatusPrivate);
 router
   .route('/sessions/:id')
-  .get(getSessionBySessionIdPrivate)
-  .put(editSessionByIdPrivate)
-  .delete(deleteSessionPrivate);
+  .get(secureRoute, getSessionBySessionIdPrivate)
+  .put(secureRoute, editSessionByIdPrivate)
+  .delete(secureRoute, deleteSessionPrivate);
 export default router;

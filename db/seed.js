@@ -2,7 +2,6 @@ import { connectToDb, disconnectDb } from './helpers.js';
 import articles from './data.js';
 import Article from '../models/article.js';
 import User from '../models/user.js';
-import mongoose from 'mongoose';
 
 const adminUser = {
   firstName: 'admin',
