@@ -45,7 +45,7 @@ const athleteSchema = new mongoose.Schema(
     gender: { type: String, required: true },
     height: { type: Number, required: true },
     weight: { type: Number, required: true },
-    profilePhotoUrl: { type: String, required: true },
+    profilePhotoUrl: { type: String },
     yearStartedCycling: { type: Number, required: true },
     previousSportingExperience: { type: String, required: true },
     injury: { type: String, required: true },

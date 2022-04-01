@@ -14,13 +14,12 @@ const adminUser = {
     '6241b5be7785e878f68c8827',
     '6241b6217785e878f68c8833',
   ],
-  role: 'admin',
-  // isAdmin: true,
-  // isWriter: false,
-  // isEditor: false,
-  // isCoach: false,
-  // isAthlete: false,
-  // isMedical: false,
+  isAdmin: true,
+  isWriter: false,
+  isEditor: false,
+  isCoach: false,
+  isAthlete: false,
+  isMedical: false,
 };
 
 const writerUser = {

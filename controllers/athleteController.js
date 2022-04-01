@@ -35,7 +35,9 @@ const getAthletesByStatusPrivate = async (req, res, next) => {
       req.currentUser.isCoach ||
       req.currentUser.isMedic
     ) {
-      const athletes = await Athletes.find({ status: req.params.status });
+      const athletes = await Athletes.find({
+        applicationStatus: req.params.articleStatus,
+      });
       return res.status(200).json(athletes);
     }
     return res.status(401).send({
