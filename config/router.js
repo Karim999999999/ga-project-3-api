@@ -115,9 +115,9 @@ import {
   getAllSessionsForCoachPrivate,
   getSessionsByStatusPrivate,
   getSessionBySessionIdPrivate,
-  editSessionByIdPrivate,
   deleteSessionPrivate,
   createSessionPrivate,
+  updateSession,
 } from '../controllers/sessionsController.js';
 
 router
@@ -133,6 +133,6 @@ router
 router
   .route('/sessions/:id')
   .get(secureRoute, getSessionBySessionIdPrivate)
-  .put(secureRoute, editSessionByIdPrivate)
+  .put(secureRoute, updateSession)
   .delete(secureRoute, deleteSessionPrivate);
 export default router;

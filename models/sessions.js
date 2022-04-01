@@ -11,6 +11,7 @@ const sessionSchema = new mongoose.Schema(
     sessionStatus: { type: String, required: true, default: 'upcoming' },
     location: String,
     // photosUrls: [photoSchema],
+    reasonForCancel: String,
   },
   { timestamps: true }
 );
