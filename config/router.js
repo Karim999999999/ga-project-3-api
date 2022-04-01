@@ -96,7 +96,7 @@ import {
 
 router
   .route('/athlete/:id/medical-incident/')
-  .post(registerNewMedicalIncidentPrivate);
+  .post(secureRoute, registerNewMedicalIncidentPrivate);
 router
   .route('/athlete/:id/medical-incident/:medicalIncidentId')
   .put(secureRoute, editMedicalIncidentByIDPrivate)
