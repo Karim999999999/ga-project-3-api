@@ -6,9 +6,10 @@ const sessionSchema = new mongoose.Schema(
     sessionLength: { type: Number, required: true },
     sessionType: { type: String, required: true },
     distanceCycledKm: { type: Number, required: true },
-    coach: { type: mongoose.Schema.ObjectId, ref: 'Users', required: true },
+    coach: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
     attendance: [{ type: mongoose.Types.ObjectId, ref: 'Athletes' }],
-    sessionStatus: { type: String, required: true },
+    sessionStatus: { type: String, required: true, default: 'upcoming' },
+    location: String,
     // photosUrls: [photoSchema],
   },
   { timestamps: true }

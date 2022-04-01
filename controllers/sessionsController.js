@@ -28,31 +28,42 @@ export const getAllSessionsForCoachPrivate = async (req, res, next) => {
   }
 };
 
-export const getSessionsByStatusPrivate = async (req, res, next) => {
+// export const getSessionsByStatusPrivate = async (req, res, next) => {
+//   try {
+//     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
+//       const sessions = await Sessions.find({ status: req.params.statusquery });
+//       return res.status(200).json(sessions);
+//     }
+//     return res.status(401).send({
+//       message: 'Unauthorized: you must be an admin to edit a movie',
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+const getSessionsByStatusPrivate = async (req, res, next) => {
   try {
-    if (req.currentUser.isAdmin || req.currentUser.isCoach) {
-      const sessions = await Sessions.find({ status: req.params.statusquerry });
-      return res.status(200).json(sessions);
-    }
-    return res.status(401).send({
-      message: 'Unauthorized: you must be an admin to edit a movie',
-    });
+    const sessions = await Sessions.find();
+    res.status(200).json(res.sortPaginate);
   } catch (error) {
     next(error);
   }
 };
+
 export const getSessionBySessionIdPrivate = async (req, res, next) => {
-  try {
-    if (req.currentUser.isAdmin || req.currentUser.isCoach) {
-      const session = await Sessions.findById(req.params.id);
-      return res.status(200).json(session);
-    }
-    return res.status(401).send({
-      message: 'Unauthorized: you must be an admin to edit a movie',
-    });
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json({ status: 'called' });
+  // try {
+  //   if (req.currentUser.isAdmin || req.currentUser.isCoach) {
+  //     const session = await Sessions.findById(req.params.id);
+  //     return res.status(200).json(session);
+  //   }
+  //   return res.status(401).send({
+  //     message: 'Unauthorized: you must be an admin to edit a movie',
+  //   });
+  // } catch (error) {
+  //   next(error);
+  // }
 };
 export const editSessionByIdPrivate = async (req, res, next) => {
   try {
@@ -72,6 +83,7 @@ export const editSessionByIdPrivate = async (req, res, next) => {
 };
 
 export const createSessionPrivate = async (req, res, next) => {
+  console.log(req);
   try {
     if (req.currentUser.isAdmin || req.currentUser.isCoach) {
       const session = await Sessions.create(req.body);
@@ -98,3 +110,5 @@ export const deleteSessionPrivate = async (req, res, next) => {
     next(error);
   }
 };
+
+export { getSessionsByStatusPrivate };

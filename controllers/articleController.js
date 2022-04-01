@@ -5,6 +5,7 @@ import User from '../models/user.js';
 
 const getArticles = async (req, res, next) => {
   try {
+    await Article.find();
     res.status(200).json(res.sortPaginate);
   } catch (err) {
     next(err);
@@ -13,26 +14,20 @@ const getArticles = async (req, res, next) => {
 
 const getArticleByStatusAndUserId = async (req, res, next) => {
   try {
-    if (req.currentUser) {
-      const articlesByStatus = await Article.find({
-        author: req.currentUser._id,
-        status: req.params.articleStatus,
-      });
-      return res.status(200).json(articlesByStatus);
-    }
-    return res.status(400).send({ message: 'unauthorized' });
+    const articles = await Article.find();
+    res.status(200).json(res.sortPaginate);
   } catch (error) {
     next(error);
   }
 };
 
-const getArticlesByUserId = (req, res, next) => {
-  Article.find({ author: req.currentUser._id })
-    .then(articles => {
-      console.log(req.query);
-      res.status(200).json(res.sortPaginate);
-    })
-    .catch(next);
+const getArticlesByUserId = async (req, res, next) => {
+  try {
+    const articles = await Article.find();
+    res.status(200).json(res.sortPaginate);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getArticleById = (req, res, next) => {
