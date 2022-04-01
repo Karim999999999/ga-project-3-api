@@ -177,7 +177,6 @@ const getAthletesMedicalIncidentsPrivate = async (req, res, next) => {
 const createNewAthlete = async (req, res, next) => {
   try {
     const athlete = await Athletes.create(req.body);
-
     await Sessions.updateMany(
       { _id: athlete.attendance },
       { $push: { attendance: athlete._id } }
