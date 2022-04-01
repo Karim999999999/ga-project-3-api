@@ -51,35 +51,16 @@ const getSessionsByStatusPrivate = async (req, res, next) => {
   }
 };
 
-export const getSessionBySessionIdPrivate = async (req, res, next) => {
-  res.status(200).json({ status: 'called' });
-  // try {
-  //   if (req.currentUser.isAdmin || req.currentUser.isCoach) {
-  //     const session = await Sessions.findById(req.params.id);
-  //     return res.status(200).json(session);
-  //   }
-  //   return res.status(401).send({
-  //     message: 'Unauthorized: you must be an admin to edit a movie',
-  //   });
-  // } catch (error) {
-  //   next(error);
-  // }
+const getSessionBySessionIdPrivate = (req, res, next) => {
+  Sessions.findById(req.params.id)
+    .then(session => res.status(200).json(session))
+    .catch(next);
 };
-export const editSessionByIdPrivate = async (req, res, next) => {
-  try {
-    if (req.currentUser.isAdmin || req.currentUser.isCoach) {
-      const session = await Sessions.findById(req.params.id);
-      session.set(req.body);
 
-      const savedSession = await session.save();
-      return res.status(200).json(savedSession);
-    }
-    return res.status(401).send({
-      message: 'Unauthorized: you must be an admin to edit a movie',
-    });
-  } catch (error) {
-    next(error);
-  }
+const updateSession = async (req, res, next) => {
+  await Sessions.findByIdAndUpdate(req.params.id, req.body);
+  const updatedSession = await Sessions.findById(req.params.id);
+  res.status(200).json(updatedSession);
 };
 
 export const createSessionPrivate = async (req, res, next) => {
@@ -111,4 +92,8 @@ export const deleteSessionPrivate = async (req, res, next) => {
   }
 };
 
-export { getSessionsByStatusPrivate };
+export {
+  getSessionsByStatusPrivate,
+  getSessionBySessionIdPrivate,
+  updateSession,
+};
