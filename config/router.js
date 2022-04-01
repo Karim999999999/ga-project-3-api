@@ -68,7 +68,7 @@ router
   .post(createNewAthlete);
 router.route('/approved-athletes').get(getApprovedAthletesPublic);
 router
-  .route('/athletes/stat/:status')
+  .route('/manage/athletes/status/:articleStatus')
   .get(secureRoute, getAthletesByStatusPrivate);
 router
   .route('/athlete/:id')
